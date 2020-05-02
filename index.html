@@ -110,7 +110,7 @@
 				    	startDate, 
 				    	endDate
 				    ])
-				    .range([0, w]);
+				    .range([margin, w - margin]);
 
 				var moving = false;
 				var currentValue = 0;
@@ -128,8 +128,8 @@
 
 				slider.append("line")
 				    .attr("class", "track")
-				    .attr("x1", x.range()[0])
-				    .attr("x2", x.range()[1])
+				    .attr("x1", x.range()[0] + margin)
+				    .attr("x2", x.range()[1] - margin)
 				  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
 				    .attr("class", "track-inset")
 				  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
@@ -165,7 +165,6 @@
 				    .attr("text-anchor", "middle")
 				    .text(formatDate(startDate))
 				    .attr("transform", "translate(0," + (-25) + ")")
-
 
 
 				// plot'dem points
@@ -215,10 +214,10 @@
 					.append("circle")
 					.attr("class", "location")
 					.attr("cx", function(d) {
-						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[0];
+						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[0] - margin;
 					})
 					.attr("cy", function(d) {
-						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[1];
+						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[1] - margin;
 					})
 					.attr("r", 1)
 					.style("fill", "yellow")
