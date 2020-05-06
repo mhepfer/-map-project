@@ -7,7 +7,7 @@
 		<style type="text/css">
 			#play-button {
 		      position: absolute;
-		      top: 140px;
+		      top: 180px;
 		      left: 50px;
 		      background: #f08080;
 		      padding-right: 26px;
@@ -63,6 +63,10 @@
 		</style>
 	</head>
 	<body>
+		<h1>Lewis and Clark</h1>
+		<div id="timeline"></div>
+		<div id="map"></div>
+		<div id="people"></div>
 		<div id="dataviz"></div>
 		<button id="play-button">Play</button>
 		<script type="text/javascript">
@@ -72,7 +76,7 @@
 			var dataset;
 
 			var projection = d3.geoAlbersUsa()
-				.translate([w/2, (h/2 + h/7)])
+				.translate([w/2, (h/2 + h/12)])
 				.scale([w - margin]);
 
 			var path = d3.geoPath(projection);
@@ -125,7 +129,7 @@
 
 				var slider = svg.append("g")
 				    .attr("class", "slider")
-				    .attr("transform", "translate(" + margin + "," + h/7 + ")");
+				    .attr("transform", "translate(" + margin + "," + h/12 + ")");
 
 				slider.append("line")
 				    .attr("class", "track")
@@ -146,7 +150,7 @@
 				 // ticks are placed on the overlay
 				 slider.insert("g", ".track-overlay")
 				    .attr("class", "ticks")
-				    .attr("transform", "translate(0," + 18 + ")")
+				    .attr("transform", "translate(" + margin + "," + 18 + ")")
 				  .selectAll("text")
 				    .data(x.ticks(10))
 				    .enter()
@@ -159,13 +163,14 @@
 
 				var handle = slider.insert("circle", ".track-overlay")
 				    .attr("class", "handle")
+				    .attr("transform", "translate(" + margin + ",0)")
 				    .attr("r", 9);
 
 				var label = slider.append("text")  
 				    .attr("class", "label")
 				    .attr("text-anchor", "middle")
 				    .text(formatDate(startDate))
-				    .attr("transform", "translate(0," + (-25) + ")")
+				    .attr("transform", "translate(" + 30 + "," + (-25) + ")")
 
 
 				// plot'dem points
