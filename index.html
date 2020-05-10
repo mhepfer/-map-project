@@ -66,14 +66,15 @@
 		<h1>Lewis and Clark</h1>
 		<div id="timeline"></div>
 		<div id="map"></div>
-		<div id="people"></div>
 		<div id="dataviz"></div>
+		<div id="people"></div>
 		<button id="play-button">Play</button>
 		<script type="text/javascript">
 			var w = 900;
 			var h = 600;
 			var margin = 30;
 			var dataset;
+			var people;
 
 			var projection = d3.geoAlbersUsa()
 				.translate([w/2, (h/2 + h/12)])
@@ -86,6 +87,11 @@
 				.attr("width", w)
 				.attr("height", h);
 
+			var peopleLegend = d3.select("#people")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", 500); // update to change heights based on # of people
+
 			d3.json("us-states.json").then(function(json) {
 				svg.selectAll("path")
 					.data(json.features)
@@ -95,18 +101,49 @@
 					.style("fill", "steelblue");;
 			});
 
-			d3.csv("lewis-and-clark-expedition-lewis-and-clark-campsites-bergant.csv").then(function(data) {
+			d3.csv("clean-lewis-and-clark-data.csv").then(function(data) {
 				var dataset = data;
 				var points = [];
 				for (index = 0; index < data.length; index++) {
-					points.push([parseFloat(data[index].Shape_X), parseFloat(data[index].Shape_Y)]);
+					points.push([
+						parseFloat(data[index].latitude), 
+						parseFloat(data[index].longitude)
+					]);
 				}
+
+				// add people legend
+
+				var dup_people = dataset.map(function (el) { return JSON.parse(el.people); });
+				dup_people = dup_people.flat();
+				var people = Array.from(new Set(dup_people));
+
+				peopleLegend.selectAll("peopledots")
+				  .data(people)
+				  .enter()
+				  .append("circle")
+				    .attr("cx", 10)
+				    .attr("cy", function(d,i){ return 10 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
+				    .attr("r", 7)
+				    .style("fill", "green")
+
+				// Add one dot in the legend for each name.
+				var nodes = peopleLegend.selectAll("peoplelabels")
+				  .data(people)
+				  .enter()
+				  .append("text")
+				    .attr("x", 20)
+				    .attr("y", function(d,i){ return 15 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
+				    .style("fill", "green")
+				    .text(function(d){ return d})
+				    .attr("text-anchor", "left")
+				    .style("alignment-baseline", "middle")
+
 
 				var parseTime = d3.timeParse("%Y-%m-%d");
 				var formatDate = d3.timeFormat("%b %Y");
 
-				var startDate = d3.min(data, function(d) { return parseTime(d.YEAR_MO_DA); })
-				var endDate = d3.max(data, function(d) { return parseTime(d.YEAR_MO_DA); })
+				var startDate = d3.min(data, function(d) { return parseTime(d.year_mo_da); })
+				var endDate = d3.max(data, function(d) { return parseTime(d.year_mo_da); })
 
 				
 				// slider
@@ -182,6 +219,25 @@
 
 				plotPoints(data);
 
+				var locations = plot.selectAll(".location")
+				// Add the highlighting by person functionality
+			    nodes.on('mouseover', function (legend_d) {
+			        // Highlight the nodes: every node is green except of him
+			        nodes.style('fill', "#B8B8B8")
+			        d3.select(this).style('fill', '#69b3b2')
+			        // Highlight the connections
+			        locations
+			          .style('fill', function (location_d) { 
+			          	if (JSON.parse(location_d['people']).includes(legend_d)) {
+			          		return "green";
+			          	} else {
+			          		return "gray";
+			          	}
+			      	})
+			      }).on('mouseout', function (legend_d) {
+			        locations.style('fill', "yellow");
+			      })
+
 				playButton
 				    .on("click", function() {
 					    var button = d3.select(this);
@@ -231,7 +287,7 @@
 			      }
 			      var mousemove = function(d) {
 			        Tooltip
-			          .html("Date: " + parseTime(d.YEAR_MO_DA))
+			          .html("Date: " + parseTime(d.year_mo_da))
 			          .style("left", (d3.mouse(this)[0]+70) + "px")
 			          .style("top", (d3.mouse(this)[1]) + "px")
 			          .style("opacity", 1)
@@ -249,10 +305,10 @@
 					.append("circle")
 					.attr("class", "location")
 					.attr("cx", function(d) {
-						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[0] - margin;
+						return projection([parseFloat(d.latitude), parseFloat(d.longitude)])[0] - margin;
 					})
 					.attr("cy", function(d) {
-						return projection([parseFloat(d.Shape_X), parseFloat(d.Shape_Y)])[1] - margin;
+						return projection([parseFloat(d.latitude), parseFloat(d.longitude)])[1] - margin;
 					})
 					.attr("r", 3)
 					.style("fill", "yellow")
@@ -277,7 +333,7 @@
 
 				  // filter data set and redraw plot
 				  var newData = dataset.filter(function(d) {
-				    return parseTime(d.YEAR_MO_DA) < h;
+				    return parseTime(d.year_mo_da) < h;
 				  })
 				  plotPoints(newData);
 				}
