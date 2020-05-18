@@ -6,7 +6,6 @@ var addEventDisplay = function(events) {
 	})
 }
 
-
 var addToolTipHover = function(events) {
 	events.on("mouseover", function(d){
 		d3.select("#tooltip")
@@ -25,28 +24,6 @@ var addToolTipHover = function(events) {
 			.classed("hidden", true);
 	})
 } 
-
-
-// var add_tooltip = function(plot) {
-// 	var locations = plot.selectAll(".location")
-// 	// Add the highlighting by person functionality
-//     nodes.on('mouseover', function (legend_d) {
-//         // Highlight the nodes: every node is green except of him
-//         nodes.style('fill', "#B8B8B8")
-//         d3.select(this).style('fill', '#69b3b2')
-//         // Highlight the connections
-//         locations
-//           .style('fill', function (location_d) { 
-//           	if (JSON.parse(location_d['people']).includes(legend_d)) {
-//           		return "yellow";
-//           	} else {
-//           		return "gray";
-//           	}
-//       	})
-//       }).on('mouseout', function (legend_d) {
-//         locations.style('fill', "yellow");
-//       })
-// }
 
 var populate_map = function() {
 	var map_svg = d3.select("#map").select("svg");
@@ -77,17 +54,4 @@ var populate_map = function() {
 
 	addToolTipHover(events);
 	addEventDisplay(events);
-
-	 //    .on("click", displayEntry)
-		// .transition();
 };
-
-
-
-function plotPoints(data) {
-
-
-  // if filtered dataset has less circles than already existing, remove excess
-  // locations.exit()
-  //   .remove();
-}

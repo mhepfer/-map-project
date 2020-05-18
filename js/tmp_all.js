@@ -22,10 +22,10 @@
 
 //to here
 
-var peopleLegend = d3.select("#people")
-	.append("svg")
-	.attr("width", 200)
-	.attr("height", 500); // update to change heights based on # of people
+// var peopleLegend = d3.select("#people")
+// 	.append("svg")
+// 	.attr("width", 200)
+// 	.attr("height", 500); // update to change heights based on # of people
 
 
 d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
@@ -40,30 +40,30 @@ d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
 
 	// add people legend
 
-	var dup_people = dataset.map(function (el) { return el.people; });
-	dup_people = dup_people.flat();
-	var people = Array.from(new Set(dup_people));
+	// var dup_people = dataset.map(function (el) { return el.people; });
+	// dup_people = dup_people.flat();
+	// var people = Array.from(new Set(dup_people));
 
-	peopleLegend.selectAll("peopledots")
-	  .data(people)
-	  .enter()
-	  .append("circle")
-	    .attr("cx", 10)
-	    .attr("cy", function(d,i){ return 10 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
-	    .attr("r", 7)
-	    .style("fill", "green")
+	// peopleLegend.selectAll("peopledots")
+	//   .data(people)
+	//   .enter()
+	//   .append("circle")
+	//     .attr("cx", 10)
+	//     .attr("cy", function(d,i){ return 10 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
+	//     .attr("r", 7)
+	//     .style("fill", "green")
 
-	// Add one dot in the legend for each name.
-	var nodes = peopleLegend.selectAll("peoplelabels")
-	  .data(people)
-	  .enter()
-	  .append("text")
-	    .attr("x", 20)
-	    .attr("y", function(d,i){ return 15 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
-	    .style("fill", "green")
-	    .text(function(d){ return d})
-	    .attr("text-anchor", "left")
-	    .style("alignment-baseline", "middle")
+	// // Add one dot in the legend for each name.
+	// var nodes = peopleLegend.selectAll("peoplelabels")
+	//   .data(people)
+	//   .enter()
+	//   .append("text")
+	//     .attr("x", 20)
+	//     .attr("y", function(d,i){ return 15 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
+	//     .style("fill", "green")
+	//     .text(function(d){ return d})
+	//     .attr("text-anchor", "left")
+	//     .style("alignment-baseline", "middle")
 
 
 	var parseTime = d3.timeParse("%Y-%m-%d");

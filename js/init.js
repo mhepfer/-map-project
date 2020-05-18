@@ -4,6 +4,7 @@ var init = async function() {
 	dataset = await load_clean_data("data/clean-lewis-and-clark-data.csv");
 	// but these have to happen after the above two
 	populate_map();
+	addPeopleLegend();
 	// add timeline
 	// add people
 }
