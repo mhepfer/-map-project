@@ -9,13 +9,22 @@
 	<body>
 		<h1>Lewis and Clark</h1>
 		<div id="timeline"></div>
+		<button id="play-button">Play</button>
 		<div id="map"></div>
 		<div id="dataviz"></div>
 		<div>
 			<div id="people" style="display: inline-block;width: 200px;vertical-align: top;"></div>
 			<div id="text" style="display: inline-block;width: 500px;vertical-align: top;"></div>
 		</div>
-		<button id="play-button">Play</button>
-		<script type="text/javascript" src="js/tmp_all.js"></script>
+		<div id="tooltip" class="hidden">
+			<p id="tooltipDate"></p>
+			<p id="tooltipPeople"></p>
+		</div>
+		<script type="text/javascript" src="js/defaults.js"></script>
+		<script type="text/javascript" src="js/load_clean_data.js"></script>
+		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="js/map_events.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<!-- <script type="text/javascript" src="js/tmp_all.js"></script> -->
 	</body>
 </html>
