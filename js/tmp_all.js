@@ -84,57 +84,57 @@ d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
 	var moving = false;
 	var currentValue = 0;
 	var targetValue = w - margin;
-	var playButton = d3.select("#play-button");
+	// var playButton = d3.select("#play-button");
 
-	var x = d3.scaleTime()
-	    .domain([startDate, endDate])
-	    .range([0, targetValue])
-	    .clamp(true);
+	// var x = d3.scaleTime()
+	//     .domain([startDate, endDate])
+	//     .range([0, targetValue])
+	//     .clamp(true);
 
-	var slider = svg.append("g")
-	    .attr("class", "slider")
-	    .attr("transform", "translate(" + margin + "," + h/12 + ")");
+	// var slider = svg.append("g")
+	//     .attr("class", "slider")
+	//     .attr("transform", "translate(" + margin + "," + h/12 + ")");
 
-	slider.append("line")
-	    .attr("class", "track")
-	    .attr("x1", x.range()[0] + margin)
-	    .attr("x2", x.range()[1] - margin)
-	  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-	    .attr("class", "track-inset")
-	  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-	    .attr("class", "track-overlay")
-	    .call(d3.drag()
-	        .on("start.interrupt", function() { slider.interrupt(); })
-	        .on("start drag", function() {
-	          currentValue = d3.event.x;
-	          update(x.invert(currentValue)); 
-	        })
-	    );
+	// slider.append("line")
+	//     .attr("class", "track")
+	//     .attr("x1", x.range()[0] + margin)
+	//     .attr("x2", x.range()[1] - margin)
+	//   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+	//     .attr("class", "track-inset")
+	//   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+	//     .attr("class", "track-overlay")
+	//     .call(d3.drag()
+	//         .on("start.interrupt", function() { slider.interrupt(); })
+	//         .on("start drag", function() {
+	//           currentValue = d3.event.x;
+	//           update(x.invert(currentValue)); 
+	//         })
+	//     );
 
-	 // ticks are placed on the overlay
-	 slider.insert("g", ".track-overlay")
-	    .attr("class", "ticks")
-	    .attr("transform", "translate(" + margin + "," + 18 + ")")
-	  .selectAll("text")
-	    .data(x.ticks(10))
-	    .enter()
-	    .append("text")
-	    .attr("x", x)
-	    .attr("y", 10)
-	    .attr("text-anchor", "middle")
-	    .text(function(d) { return formatDate(d); });
+	//  // ticks are placed on the overlay
+	//  slider.insert("g", ".track-overlay")
+	//     .attr("class", "ticks")
+	//     .attr("transform", "translate(" + margin + "," + 18 + ")")
+	//   .selectAll("text")
+	//     .data(x.ticks(10))
+	//     .enter()
+	//     .append("text")
+	//     .attr("x", x)
+	//     .attr("y", 10)
+	//     .attr("text-anchor", "middle")
+	//     .text(function(d) { return formatDate(d); });
 
 
-	var handle = slider.insert("circle", ".track-overlay")
-	    .attr("class", "handle")
-	    .attr("transform", "translate(" + margin + ",0)")
-	    .attr("r", 9);
+	// var handle = slider.insert("circle", ".track-overlay")
+	//     .attr("class", "handle")
+	//     .attr("transform", "translate(" + margin + ",0)")
+	//     .attr("r", 9);
 
-	var label = slider.append("text")  
-	    .attr("class", "label")
-	    .attr("text-anchor", "middle")
-	    .text(formatDate(startDate))
-	    .attr("transform", "translate(" + 30 + "," + (-25) + ")")
+	// var label = slider.append("text")  
+	//     .attr("class", "label")
+	//     .attr("text-anchor", "middle")
+	//     .text(formatDate(startDate))
+	//     .attr("transform", "translate(" + 30 + "," + (-25) + ")")
 
 
 	// plot'dem points
@@ -165,35 +165,35 @@ d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
         locations.style('fill', "yellow");
       })
 
-	playButton
-	    .on("click", function() {
-		    var button = d3.select(this);
-		    if (button.text() == "Pause") {
-		      moving = false;
-		      clearInterval(timer);
-		      // timer = 0;
-		      button.text("Play");
-		    } else {
-		      moving = true;
-		      timer = setInterval(step, 100);
-		      button.text("Pause");
-		    }
-		    console.log("Slider moving: " + moving);
-	  })
+	// playButton
+	//     .on("click", function() {
+	// 	    var button = d3.select(this);
+	// 	    if (button.text() == "Pause") {
+	// 	      moving = false;
+	// 	      clearInterval(timer);
+	// 	      // timer = 0;
+	// 	      button.text("Play");
+	// 	    } else {
+	// 	      moving = true;
+	// 	      timer = setInterval(step, 100);
+	// 	      button.text("Pause");
+	// 	    }
+	// 	    console.log("Slider moving: " + moving);
+	//   })
 
 
-	function step() {
-	  update(x.invert(currentValue));
-	  currentValue = currentValue + (targetValue/151);
-	  if (currentValue > targetValue) {
-	    moving = false;
-	    currentValue = 0;
-	    clearInterval(timer);
-	    // timer = 0;
-	    playButton.text("Play");
-	    console.log("Slider moving: " + moving);
-	  }
-	}
+	// function step() {
+	//   update(x.invert(currentValue));
+	//   currentValue = currentValue + (targetValue/151);
+	//   if (currentValue > targetValue) {
+	//     moving = false;
+	//     currentValue = 0;
+	//     clearInterval(timer);
+	//     // timer = 0;
+	//     playButton.text("Play");
+	//     console.log("Slider moving: " + moving);
+	//   }
+	// }
 
 	// create a tooltip
  //    var Tooltip = d3.select("#dataviz")
@@ -259,17 +259,17 @@ d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
 	//     .remove();
 	// }
 
-	function update(h) {
-	  // update position and text of label according to slider scale
-	  handle.attr("cx", x(h));
-	  label.attr("x", x(h))
-	    .text(formatDate(h));
+	// function update(h) {
+	//   // update position and text of label according to slider scale
+	//   handle.attr("cx", x(h));
+	//   label.attr("x", x(h))
+	//     .text(formatDate(h));
 
-	  // filter data set and redraw plot
-	  var newData = dataset.filter(function(d) {
-	    return d.year_mo_da < h;
-	  })
-	  plotPoints(newData);
-	}
+	//   // filter data set and redraw plot
+	//   var newData = dataset.filter(function(d) {
+	//     return d.year_mo_da < h;
+	//   })
+	//   plotPoints(newData);
+	// }
 	return points;
 })
