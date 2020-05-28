@@ -10,13 +10,15 @@ var drawMap = function(w, h, margin) {
 		.attr("width", w)
 		.attr("height", h);
 
-	d3.json("data/us-states.json").then(function(json) {
+	d3.json("data/1810.json").then(function(json) {
+		mapData = topojson.feature(json, json.objects.stdin);
+
 		map_svg.selectAll("path")
-			.data(json.features)
+			.data(mapData.features)
 			.enter()
 			.append("path")
 			.attr("d", path)
-			.style("fill", "steelblue");;
+			.style("fill", "steelblue");
 	});
 	map_defaults['projection'] = projection;
 }
