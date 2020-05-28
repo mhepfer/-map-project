@@ -1,21 +1,8 @@
-#play-button {
-  position: absolute;
-  top: 180px;
-  left: 50px;
-  background: #f08080;
-  padding-right: 26px;
-  border-radius: 3px;
-  border: none;
-  color: white;
-  margin: 0;
-  padding: 0 12px;
-  width: 60px;
-  cursor: pointer;
-  height: 30px;
-}
-
-#play-button:hover {
-  background-color: #696969;
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
 }
 
 .ticks {
@@ -46,16 +33,29 @@
   cursor: crosshair;
 }
 
-.handle {
-  fill: #fff;
-  stroke: #000;
-  stroke-opacity: 0.5;
-  stroke-width: 1.25px;
-}
-
 #boundary path {
   stroke: #666;
   fill: none;
+}
+
+#play-button {
+  position: absolute;
+  top: 180px;
+  left: 50px;
+  background: #f08080;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0 12px;
+  width: 60px;
+  cursor: pointer;
+  height: 30px;
+}
+
+#play-button:hover {
+  background-color: #696969;
 }
 
 #tooltip {
