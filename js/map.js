@@ -10,7 +10,7 @@ var drawMap = function(w, h, margin) {
 		.attr("width", w)
 		.attr("height", h);
 
-	d3.json("data/1810.json").then(function(json) {
+	d3.json("data/1800.json").then(function(json) {
 		mapData = topojson.feature(json, json.objects.stdin);
 
 		map_svg.selectAll("path")
