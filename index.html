@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Lewis and Clark</title>
-		<script type="text/javascript" src="d3.min.js"></script>
+		<script type="text/javascript" src="lib/d3.min.js"></script>
+		<script src="lib/topojson.v1.min.js"></script>
 		<link type="text/css" rel="stylesheet" href="style/main.css"></link>
 	</head>
 	<body>
@@ -13,8 +14,8 @@
 		<div id="map"></div>
 		<div id="dataviz"></div>
 		<div>
-			<div id="people" style="display: inline-block;width: 200px;vertical-align: top;"></div>
-			<div id="text" style="display: inline-block;width: 500px;vertical-align: top;"></div>
+			<div id="people"></div>
+			<div id="text"></div>
 		</div>
 		<div id="tooltip" class="hidden">
 			<p id="tooltipDate"></p>

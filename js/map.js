@@ -5,18 +5,36 @@ var drawMap = function(w, h, margin) {
 
 	var path = d3.geoPath(projection);
 
-	var map_svg = d3.select("#map")
+	var mapSvg = d3.select("#map")
 		.append("svg")
 		.attr("width", w)
 		.attr("height", h);
 
-	d3.json("data/us-states.json").then(function(json) {
-		map_svg.selectAll("path")
-			.data(json.features)
+	// This order sets our boundry layer on the bottom where it belongs
+	var mapBoundary = mapSvg.append("g")
+		.attr("id", "boundary")
+
+	var mapTerritory = mapSvg.append("g")
+		.attr("id", "territory")
+
+	d3.json("data/usa.json").then(function(json) {
+		mapBoundary.selectAll("path")
+        .data(json.features)
+        .enter()
+      	.append("path")
+        .attr("d", path)
+				.style("fill",  "none");
+	});
+
+	d3.json("data/1800.json").then(function(json) {
+		mapData = topojson.feature(json, json.objects.stdin);
+
+		mapTerritory.selectAll("path")
+			.data(mapData.features)
 			.enter()
 			.append("path")
 			.attr("d", path)
-			.style("fill", "steelblue");;
+			.style("fill", "steelblue");
 	});
 	map_defaults['projection'] = projection;
 }
