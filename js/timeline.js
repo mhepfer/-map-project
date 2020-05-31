@@ -33,20 +33,15 @@ var step = function() {
     }
 }
 
-function update(h) {
+function update(currentDate) {
   // update position and text of label according to slider scale
   var timeScale = timelineDefaults.timeScale;
   var formatDate = d3.timeFormat("%b %Y");
-  timelineDefaults.handle.attr("cx", timeScale(h));
-  timelineDefaults.label.attr("x", timeScale(h))
-    .text(formatDate(h));
+  timelineDefaults.handle.attr("cx", timeScale(currentDate));
+  timelineDefaults.label.attr("x", timeScale(currentDate))
+    .text(formatDate(currentDate));
 
-  // filter data set and redraw plot
-  // var newData = dataset.filter(function(d) {
-  //   return d.year_mo_da < h;
-  // })
-  // set newData opacity to 1, set other data opacity to 0
-  // plotPoints(newData);
+  hideDisplayEvents(currentDate) 
 }
 
 var drawTimeline = function(svg) {

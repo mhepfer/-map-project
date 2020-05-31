@@ -1,3 +1,15 @@
+var hideDisplayEvents = function(currentDate) {
+	map_svg = d3.select("#map").select("svg")
+	map_svg.selectAll("circle")
+		.data(dataset)
+		.style("opacity", function(d) {
+			if (d.year_mo_da < currentDate) {
+				return "0.75";
+			} else {
+				return "0.1";
+			}
+		})
+}
 
 var addEventDisplay = function(events) {
 	events.on("click", function(d) {
