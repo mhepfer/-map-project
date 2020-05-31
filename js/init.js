@@ -5,6 +5,7 @@ var init = async function() {
 	// but these have to happen after the above two
 	populate_map();
 	addPeopleLegend();
+	initTimeline();
 	// add timeline
 	// add people
 }

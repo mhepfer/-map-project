@@ -6,5 +6,11 @@ var map_defaults = {
 	moving: false,
 }
 
+var timelineDefaults = {
+	w: 900,
+	h: 80,
+	margin: 30,
+}
+
 var dataset;
 var people;

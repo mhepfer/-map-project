@@ -66,11 +66,11 @@ d3.csv("data/clean-lewis-and-clark-data.csv").then(function(data) {
 	//     .style("alignment-baseline", "middle")
 
 
-	var parseTime = d3.timeParse("%Y-%m-%d");
-	var formatDate = d3.timeFormat("%b %Y");
+	// var parseTime = d3.timeParse("%Y-%m-%d");
+	// var formatDate = d3.timeFormat("%b %Y");
 
-	var startDate = d3.min(dataset, function(d) { return d.year_mo_da; })
-	var endDate = d3.max(dataset, function(d) { return d.year_mo_da; })
+	// var startDate = d3.min(dataset, function(d) { return d.year_mo_da; })
+	// var endDate = d3.max(dataset, function(d) { return d.year_mo_da; })
 
 	
 	// slider
