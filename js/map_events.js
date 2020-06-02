@@ -19,7 +19,7 @@ var addEventDisplay = function(events) {
 }
 
 var addToolTipHover = function(events) {
-	events.on("mouseover", function(d){
+	events.on("mouseover", function(d) {
 		d3.select("#tooltip")
 		  .style("left", (d3.mouse(this)[0]+70) + "px")
 		  .style("top", (d3.mouse(this)[1]) + "px")
@@ -35,7 +35,7 @@ var addToolTipHover = function(events) {
 		d3.select("#tooltip")
 			.classed("hidden", true);
 	})
-} 
+}
 
 var populate_map = function() {
 	var map_svg = d3.select("#map").select("svg");
