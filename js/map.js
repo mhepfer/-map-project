@@ -26,7 +26,7 @@ var drawMap = function(w, h, margin) {
 				.style("fill",  "none");
 	});
 
-	d3.json("data/1800.json").then(function(json) {
+	d3.json(map_defaults.statesFile).then(function(json) {
 		mapData = topojson.feature(json, json.objects.stdin);
 
 		mapTerritory.selectAll("path")
