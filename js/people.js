@@ -1,3 +1,12 @@
+var addPeopleSearchFilter = function() {
+	var target = document.getElementById("peopleFilter");
+	// add on change
+	target.addEventListener("keydown", function() {
+		renderPeople();
+	})
+}
+
+
 var addPeopleHighlight = function(nodes) {
 	var events = d3.selectAll(".location")
 	// Add the highlighting by person functionality
@@ -19,10 +28,41 @@ var addPeopleHighlight = function(nodes) {
       })
 }
 
+
+var renderPeople = function() {
+	var target = document.getElementById("peopleFilter");
+	var searchVal = target.value;
+	var peopleLegend = d3.select("#people-legend")
+
+	d3.selectAll(".peoplelabels").remove();
+
+	var nodes = peopleLegend.selectAll("peoplelabels")
+	  .data(people)
+	  .enter()
+	  .append("text")
+	  .filter(function(d) {
+	  	if ((searchVal === undefined) || (searchVal === "")) {
+	  		return true
+	  	} else {
+	  		return d.includes(searchVal)
+	  	}
+	  })
+	    .attr("x", 20)
+	    .attr("y", function(d,i){ return 15 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
+	    .style("fill", "green")
+	    .text(function(d){ return d})
+	    .attr("text-anchor", "left")
+	    .style("alignment-baseline", "middle")
+	    .attr("class", "peoplelabels")
+
+	addPeopleHighlight(nodes);
+}
+
+
 var addPeopleLegend = function() {
 	var dupPeople = dataset.map(function (el) { return el.people; });
 	dupPeople = dupPeople.flat();
-	var people = Array.from(new Set(dupPeople));
+	people = Array.from(new Set(dupPeople));
 
 	var peopleLegend = d3.select("#people")
 		.append("svg")
@@ -30,30 +70,10 @@ var addPeopleLegend = function() {
 		.attr("height", function() {
 			var itemHeight = 25;
 			return itemHeight * people.length;
-		}); // update to change heights based on # of people
+		})
+		.attr("id", "people-legend");
 
-
-	peopleLegend.selectAll("peopledots")
-	  .data(people)
-	  .enter()
-	  .append("circle")
-	    .attr("cx", 10)
-	    .attr("cy", function(d,i){ return 10 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
-	    .attr("r", 7)
-	    .style("fill", "green")
-
-	// Add one dot in the legend for each name.
-	var nodes = peopleLegend.selectAll("peoplelabels")
-	  .data(people)
-	  .enter()
-	  .append("text")
-	    .attr("x", 20)
-	    .attr("y", function(d,i){ return 15 + i*25}) // 10 is where the first dot appears. 25 is the distance between dots
-	    .style("fill", "green")
-	    .text(function(d){ return d})
-	    .attr("text-anchor", "left")
-	    .style("alignment-baseline", "middle")
-
-	addPeopleHighlight(nodes);
+	renderPeople();
+	addPeopleSearchFilter();
 }
 
