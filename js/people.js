@@ -29,6 +29,44 @@ var addPeopleHighlight = function(nodes) {
 }
 
 
+var eventCard = function(eventDate, eventEntry, idx) {
+	return `<div class="card">
+    	<div class="card-header" id="heading${idx}">
+      		<h2 class="mb-0">
+        	<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse${idx}" aria-expanded="false" aria-controls="collapse${idx}">
+          		${eventDate}
+        	</button>
+      		</h2>
+    	</div>
+
+    	<div id="collapse${idx}" class="collapse" aria-labelledby="heading${idx}" data-parent="#eventEntries">
+      		<div class="card-body">
+        		${eventEntry}
+      		</div>
+    	</div>
+  	</div>`
+}
+
+
+var addPeopleClick = function(nodes) {
+	// click node highlights map
+	// add journal entries to screen
+	nodes.on('click', function (person) {
+		console.log(person);
+		var events = dataset.filter(function (d) {
+			return ( d.people.includes(person) ) 
+		})
+		console.log(events.length)
+		// clear old journal entries
+		var accordion = document.getElementById("eventEntries");
+		events.forEach(function(event, idx) {
+			accordion.innerHTML += eventCard(event.year_mo_da, event.text, idx);
+		})
+		
+	})
+}
+
+
 var renderPeople = function() {
 	var target = document.getElementById("peopleFilter");
 	var searchVal = target.value;
@@ -42,9 +80,9 @@ var renderPeople = function() {
 	  .append("text")
 	  .filter(function(d) {
 	  	if ((searchVal === undefined) || (searchVal === "")) {
-	  		return true
+	  		return true;
 	  	} else {
-	  		return d.includes(searchVal)
+	  		return d.includes(searchVal);
 	  	}
 	  })
 	    .attr("x", 20)
@@ -56,6 +94,7 @@ var renderPeople = function() {
 	    .attr("class", "peoplelabels")
 
 	addPeopleHighlight(nodes);
+	addPeopleClick(nodes);
 }
 
 
