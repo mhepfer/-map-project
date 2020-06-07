@@ -12,9 +12,11 @@ var hideDisplayEvents = function(currentDate) {
 }
 
 var addEventDisplay = function(events) {
-	events.on("click", function(d) {
-		d3.select("#text")
-			.html("<p>" + d.text + "</p>")
+	events.on("click", function(event) {
+		var accordion = document.getElementById("eventEntries");
+		// clear old journal entries
+		accordion.innerHTML = "";
+		accordion.innerHTML += eventCard(event.year_mo_da, event.text, "One");
 	})
 }
 
