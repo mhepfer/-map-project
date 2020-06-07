@@ -42,6 +42,12 @@
   display: inline-block;
   vertical-align: top;
   width: 200px;
+  height: 500px;
+  overflow: scroll;
+}
+
+#peopleLegendHolder {
+  width: 200px;
 }
 
 #play-button {
