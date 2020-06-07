@@ -38,6 +38,11 @@
   fill: none;
 }
 
+#eventEntries {
+  height: 500px;
+  overflow: scroll;
+}
+
 #people {
   display: inline-block;
   vertical-align: top;

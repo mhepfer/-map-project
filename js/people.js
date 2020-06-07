@@ -52,13 +52,12 @@ var addPeopleClick = function(nodes) {
 	// click node highlights map
 	// add journal entries to screen
 	nodes.on('click', function (person) {
-		console.log(person);
 		var events = dataset.filter(function (d) {
 			return ( d.people.includes(person) ) 
 		})
-		console.log(events.length)
-		// clear old journal entries
 		var accordion = document.getElementById("eventEntries");
+		// clear old journal entries
+		accordion.innerHTML = "";
 		events.forEach(function(event, idx) {
 			accordion.innerHTML += eventCard(event.year_mo_da, event.text, idx);
 		})
