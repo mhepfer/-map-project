@@ -50,7 +50,7 @@ var eventCard = function(eventDate, eventEntry, idx) {
 
 var addPeopleClick = function(nodes) {
 	// click node highlights map
-	// add journal entries to screen
+	// add journal entries to text area
 	nodes.on('click', function (person) {
 		var events = dataset.filter(function (d) {
 			return ( d.people.includes(person) ) 
@@ -81,7 +81,7 @@ var renderPeople = function() {
 	  	if ((searchVal === undefined) || (searchVal === "")) {
 	  		return true;
 	  	} else {
-	  		return d.includes(searchVal);
+	  		return d.toLowerCase().includes(searchVal.toLowerCase());
 	  	}
 	  })
 	    .attr("x", 20)
