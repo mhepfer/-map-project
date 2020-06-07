@@ -46,6 +46,10 @@
   overflow: scroll;
 }
 
+#peopleLegendHolder {
+  width: 200px;
+}
+
 #play-button {
   position: absolute;
   top: 180px;
