@@ -20,15 +20,18 @@ var addPeopleHighlight = function(nodes) {
 }
 
 var addPeopleLegend = function() {
+	var dupPeople = dataset.map(function (el) { return el.people; });
+	dupPeople = dupPeople.flat();
+	var people = Array.from(new Set(dupPeople));
+
 	var peopleLegend = d3.select("#people")
 		.append("svg")
 		.attr("width", 200)
-		.attr("height", 500); // update to change heights based on # of people
+		.attr("height", function() {
+			var itemHeight = 25;
+			return itemHeight * people.length;
+		}); // update to change heights based on # of people
 
-
-	var dup_people = dataset.map(function (el) { return el.people; });
-	dup_people = dup_people.flat();
-	var people = Array.from(new Set(dup_people));
 
 	peopleLegend.selectAll("peopledots")
 	  .data(people)
